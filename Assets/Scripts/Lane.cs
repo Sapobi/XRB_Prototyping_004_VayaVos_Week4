@@ -1,13 +1,12 @@
-using Melanchall.DryWetMidi.Interaction;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
-using Oculus.Interaction.Input;
+using Melanchall.DryWetMidi.Interaction;
+using Melanchall.DryWetMidi.MusicTheory;
 using UnityEngine;
 
 public class Lane : MonoBehaviour
 {
-	[SerializeField] private Melanchall.DryWetMidi.MusicTheory.NoteName noteRestriction; //corresponding note to the lane
+	[SerializeField] private NoteName noteRestriction; //corresponding note to the lane
 	[SerializeField] private GameObject notePrefab; //will have to move this to Note instead, as depending on the note type you will need different prefab later
 	[SerializeField] private Transform noteSpawn, noteDespawn;
 	[SerializeField] private AudioSource tapSound;

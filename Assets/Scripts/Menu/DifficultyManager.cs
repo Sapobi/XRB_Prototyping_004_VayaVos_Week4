@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class DifficultyManager : MonoBehaviour
 {
-	[SerializeField] private string panel;
+	[SerializeField] private TMP_Text difficultyText;
 	public List<Difficulty> possibleDifficulties;
 	public Difficulty currentDifficulty;
 
@@ -32,10 +33,10 @@ public class DifficultyManager : MonoBehaviour
 		switch (currentDifficulty)
 		{
 			case Difficulty.Easy:
-				//set text easy
+				difficultyText.text = "Easy";
 				break;
 			case Difficulty.Advanced:
-				//set text advanced
+				difficultyText.text = "Advanced";
 				break;
 			default:
 				throw new ArgumentOutOfRangeException();

@@ -1,9 +1,12 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class SongPanelManager : MonoBehaviour
 {
 	[SerializeField] private List<Song> songPanels;
+	
+	public TMP_Text[] songInfoTexts;
 
 	private int _index;
 
@@ -21,7 +24,7 @@ public class SongPanelManager : MonoBehaviour
 		OpenSongPanel();
 	}
 
-	private void OpenSongPanel()
+	public void OpenSongPanel()
 	{
 		foreach (var panel in songPanels)
 		{

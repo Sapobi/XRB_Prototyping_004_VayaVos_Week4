@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
-	[SerializeField] private DifficultyManager difficultyManager;
-	[SerializeField] private SongPanelManager songPanelManager;
+	public DifficultyManager difficultyManager;
+	public SongPanelManager songPanelManager;
+	
 	[SerializeField] private List<Button> allButtons, returnButton, menuButtons;
 	[SerializeField] private List<GameObject> screens;
 
@@ -37,6 +38,7 @@ public class MenuManager : MonoBehaviour
 	{
 		ToggleButtons(menuButtons, allButtons.Except(menuButtons).ToList());
 		OpenScreen(0);
+		songPanelManager.OpenSongPanel();
 	}
 
 	private void OpenScore()
