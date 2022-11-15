@@ -55,9 +55,9 @@ public class Anchor : MonoBehaviour
     private int _menuIndex = 0;
 
     [SerializeField, FormerlySerializedAs("buttonList_")]
-    private List<Button> _buttonList;
+    private List<UnityEngine.UI.Button> _buttonList;
 
-    private Button _selectedButton;
+    private UnityEngine.UI.Button _selectedButton;
 
     private OVRSpatialAnchor _spatialAnchor;
 

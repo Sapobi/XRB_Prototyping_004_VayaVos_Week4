@@ -307,7 +307,7 @@ public class DebugUIBuilder : MonoBehaviour
     else
         buttonRT = GameObject.Instantiate(additionalButtonPrefab[buttonIndex]).GetComponent<RectTransform>();
 
-    Button button = buttonRT.GetComponentInChildren<Button>();
+    UnityEngine.UI.Button button = buttonRT.GetComponentInChildren<UnityEngine.UI.Button>();
     if(handler != null)
       button.onClick.AddListener(delegate { handler(); });
 

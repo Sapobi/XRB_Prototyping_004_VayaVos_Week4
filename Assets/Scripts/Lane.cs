@@ -9,13 +9,13 @@ public class Lane : MonoBehaviour
 	[SerializeField] private GameObject notePrefab; //will have to move this to Note instead, as depending on the note type you will need different prefab later
 	[SerializeField] private Transform noteSpawn, noteDespawn;
 	[SerializeField] private AudioSource tapSound;
-	
-	private List<Note> notes = new(); //the spawned note prefab
-	private List<double> timeStamps = new(); //note spawntimes for this lane
 
-	private int spawnIndex;
-	private int inputIndex;
-	private bool playing;
+	private List<Note> _notes = new(); //the spawned note prefab
+	private List<double> _timeStamps = new(); //note spawntimes for this lane
+
+	private int _spawnIndex;
+	private int _inputIndex;
+	private bool _playing;
 
 	private void Start()
 	{
@@ -29,57 +29,58 @@ public class Lane : MonoBehaviour
 		{
 			if (note.NoteName == noteRestriction)
 			{
-				var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.midiFile.GetTempoMap());
-				timeStamps.Add((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f);
+				var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.Instance.MidiFile.GetTempoMap());
+				_timeStamps.Add((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f);
 			}
 		}
 	}
 
 	private void InitializeLane()
 	{
-		notes = new List<Note>();
-		timeStamps = new List<double>();
-		spawnIndex = 0;
-		inputIndex = 0;
+		_notes = new List<Note>();
+		_timeStamps = new List<double>();
+		_spawnIndex = 0;
+		_inputIndex = 0;
 	}
 
 	private void StartLane()
 	{
-		playing = true;
+		_playing = true;
 	}
 
 	void Update()
 	{
-		if (!playing) return;
-		
+		if (!_playing) return;
+
 		//spawn notes
-		if (spawnIndex < timeStamps.Count)
+		if (_spawnIndex < _timeStamps.Count)
 		{
-			if (SongManager.GetAudioSourceTime() >= timeStamps[spawnIndex] - SongManager.Instance.noteTime)
+			if (SongManager.GetAudioSourceTime() >= _timeStamps[_spawnIndex] - SongManager.Instance.noteTime)
 			{
-				var noteGameObject = Instantiate(notePrefab, noteSpawn.position, Quaternion.identity);
+				var spawnPosition = noteSpawn.position;
+				var noteGameObject = Instantiate(notePrefab, spawnPosition, Quaternion.identity);
 				var note = noteGameObject.GetComponent<Note>();
-				notes.Add(note);
-				note.assignedTime = (float)timeStamps[spawnIndex];
-				note.spawnPos = noteSpawn.position;
+				_notes.Add(note);
+				note.assignedTime = (float)_timeStamps[_spawnIndex];
+				note.spawnPos = spawnPosition;
 				note.tapPos = transform.position;
 				note.despawnPos = noteDespawn.position;
-				spawnIndex++;
+				_spawnIndex++;
 			}
 		}
 
 		//miss notes
-		if (inputIndex < timeStamps.Count)
+		if (_inputIndex < _timeStamps.Count)
 		{
-			var timeStamp = timeStamps[inputIndex];
+			var timeStamp = _timeStamps[_inputIndex];
 			var marginOfError = SongManager.Instance.marginOfError;
 			var audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.inputDelayInMilliseconds / 1000.0);
 
 			if (timeStamp + marginOfError <= audioTime)
 			{
 				Miss();
-				print($"Missed {inputIndex} note");
-				inputIndex++;
+				print($"Missed {_inputIndex} note");
+				_inputIndex++;
 			}
 		}
 	}
@@ -87,25 +88,25 @@ public class Lane : MonoBehaviour
 	private void OnTriggerEnter(Collider other)
 	{
 		HandleTapFeedback();
-		if (!playing) return;
-		
+		if (!_playing) return;
+
 		//hit notes
-		if (inputIndex < timeStamps.Count)
+		if (_inputIndex < _timeStamps.Count)
 		{
-			var timeStamp = timeStamps[inputIndex];
+			var timeStamp = _timeStamps[_inputIndex];
 			var marginOfError = SongManager.Instance.marginOfError;
 			var audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.inputDelayInMilliseconds / 1000.0);
 
 			if (Math.Abs(audioTime - timeStamp) < marginOfError)
 			{
 				Hit();
-				print($"Hit on {inputIndex} note");
-				Destroy(notes[inputIndex].gameObject);
-				inputIndex++;
+				print($"Hit on {_inputIndex} note");
+				Destroy(_notes[_inputIndex].gameObject);
+				_inputIndex++;
 			}
 			else
 			{
-				print($"Hit inaccurate on {inputIndex} note with {Math.Abs(audioTime - timeStamp)} delay");
+				print($"Hit inaccurate on {_inputIndex} note with {Math.Abs(audioTime - timeStamp)} delay");
 			}
 		}
 	}
@@ -113,6 +114,8 @@ public class Lane : MonoBehaviour
 	private void HandleTapFeedback()
 	{
 		tapSound.Play();
+		//change material
+		//haptic feedback
 	}
 
 	private void Hit()

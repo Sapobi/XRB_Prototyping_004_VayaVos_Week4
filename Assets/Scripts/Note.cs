@@ -2,19 +2,20 @@ using UnityEngine;
 
 public class Note : MonoBehaviour
 {
-	double timeInstantiated;
 	public float assignedTime;
 	public Vector3 spawnPos, tapPos, despawnPos;
+	
+	private double _timeInstantiated;
 
 	void Start()
 	{
-		timeInstantiated = SongManager.GetAudioSourceTime();
+		_timeInstantiated = SongManager.GetAudioSourceTime();
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		double timeSinceInstantiated = SongManager.GetAudioSourceTime() - timeInstantiated;
+		double timeSinceInstantiated = SongManager.GetAudioSourceTime() - _timeInstantiated;
 		float t = (float)(timeSinceInstantiated / SongManager.Instance.noteTime);
 
 

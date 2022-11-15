@@ -5,18 +5,19 @@ using UnityEngine.Events;
 
 public class SongManager : MonoBehaviour
 {
-	[SerializeField] private AudioSource audioSource;
 	[SerializeField] private Lane[] lanes;
-	
+
 	public static SongManager Instance;
-	
+
 	public double marginOfError; // in seconds
 	public int inputDelayInMilliseconds;
 	public float noteTime;
-	
-	//midifile name
-	public string fileLocation; 
-	public static MidiFile midiFile;
+
+	//song
+	public AudioSource audioSource;
+	public string songName;
+	public int songDiff;
+	public MidiFile MidiFile;
 
 	public static readonly UnityEvent StartGame = new();
 	public static readonly UnityEvent EndGame = new();
@@ -27,7 +28,7 @@ public class SongManager : MonoBehaviour
 		Instance = this;
 		StartGame.AddListener(StartSong);
 	}
-	
+
 	private void StartSong()
 	{
 		ReadFromFile();
@@ -36,13 +37,13 @@ public class SongManager : MonoBehaviour
 
 	private void ReadFromFile()
 	{
-		midiFile = MidiFile.Read(Application.streamingAssetsPath + "/" + fileLocation);
+		MidiFile = MidiFile.Read(Application.streamingAssetsPath + "/" + songName + songDiff + ".mid");
 		GetDataFromMidi();
 	}
 
 	private void GetDataFromMidi()
 	{
-		var notes = midiFile.GetNotes();
+		var notes = MidiFile.GetNotes();
 		var array = new Melanchall.DryWetMidi.Interaction.Note[notes.Count];
 		notes.CopyTo(array, 0);
 

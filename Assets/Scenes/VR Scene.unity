@@ -133,13 +133,14 @@ GameObject:
   m_Component:
   - component: {fileID: 25036336}
   - component: {fileID: 25036337}
+  - component: {fileID: 25036338}
   m_Layer: 0
   m_Name: Return
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &25036336
 Transform:
   m_ObjectHideFlags: 0
@@ -169,6 +170,23 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &25036338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25036335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7ea6447d946274fad8882e4ab6cb04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 8
+  songPanelManager: {fileID: 0}
+  difficultyManager: {fileID: 0}
+  buttonsToEnable: []
+  buttonsToDisable: []
 --- !u!1 &127879691
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,6 +546,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1404054283}
+  - {fileID: 2001475531}
+  - {fileID: 941559856}
   - {fileID: 391478503}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -795,7 +816,7 @@ Transform:
   - {fileID: 1973630941}
   - {fileID: 667640277}
   m_Father: {fileID: 199756001}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 22.5}
 --- !u!1 &422520958
 GameObject:
@@ -843,6 +864,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7ea6447d946274fad8882e4ab6cb04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 4
+  songPanelManager: {fileID: 0}
+  difficultyManager: {fileID: 0}
+  buttonsToEnable: []
+  buttonsToDisable: []
 --- !u!135 &422520961
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -916,7 +942,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd781a50f3e01ca4f9639068f8c1d819, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 2010585480}
   lanes:
   - {fileID: 1334782425}
   - {fileID: 981151506}
@@ -929,7 +954,9 @@ MonoBehaviour:
   marginOfError: 0.1
   inputDelayInMilliseconds: 0
   noteTime: 1
-  fileLocation: RollingGirl-Easy.mid
+  audioSource: {fileID: 0}
+  songName: 
+  songDiff: 0
 --- !u!4 &484876708
 Transform:
   m_ObjectHideFlags: 0
@@ -944,7 +971,6 @@ Transform:
   m_Children:
   - {fileID: 1830725417}
   - {fileID: 127879692}
-  - {fileID: 2010585481}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1074,7 +1100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 505831085}
   - component: {fileID: 505831087}
-  - component: {fileID: 505831086}
+  - component: {fileID: 505831088}
   m_Layer: 0
   m_Name: Quit
   m_TagString: Untagged
@@ -1098,18 +1124,6 @@ Transform:
   m_Father: {fileID: 391478503}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &505831086
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 505831084}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bf3b2ea5ee32014db0322647364de06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!135 &505831087
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1123,6 +1137,23 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &505831088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505831084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7ea6447d946274fad8882e4ab6cb04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  songPanelManager: {fileID: 0}
+  difficultyManager: {fileID: 0}
+  buttonsToEnable: []
+  buttonsToDisable: []
 --- !u!1 &531664466
 GameObject:
   m_ObjectHideFlags: 0
@@ -1406,6 +1437,7 @@ GameObject:
   m_Component:
   - component: {fileID: 667640277}
   - component: {fileID: 667640279}
+  - component: {fileID: 667640280}
   m_Layer: 0
   m_Name: DiffUp
   m_TagString: Untagged
@@ -1442,6 +1474,23 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &667640280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667640276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7ea6447d946274fad8882e4ab6cb04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 7
+  songPanelManager: {fileID: 0}
+  difficultyManager: {fileID: 0}
+  buttonsToEnable: []
+  buttonsToDisable: []
 --- !u!1 &686568024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1483,6 +1532,7 @@ GameObject:
   m_Component:
   - component: {fileID: 755602219}
   - component: {fileID: 755602220}
+  - component: {fileID: 755602221}
   m_Layer: 0
   m_Name: SongDown
   m_TagString: Untagged
@@ -1519,6 +1569,23 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &755602221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755602218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7ea6447d946274fad8882e4ab6cb04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 3
+  songPanelManager: {fileID: 0}
+  difficultyManager: {fileID: 0}
+  buttonsToEnable: []
+  buttonsToDisable: []
 --- !u!1 &800305737
 GameObject:
   m_ObjectHideFlags: 0
@@ -1790,6 +1857,51 @@ Transform:
   m_Father: {fileID: 1928628913}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &941559855
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 941559856}
+  - component: {fileID: 941559857}
+  m_Layer: 0
+  m_Name: DifficultyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &941559856
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941559855}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 199756001}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &941559857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941559855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 853b45d128f6a664781a038158866912, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  difficulties: 01000000
 --- !u!1 &975334961
 GameObject:
   m_ObjectHideFlags: 0
@@ -2524,6 +2636,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1337922330}
   - component: {fileID: 1337922331}
+  - component: {fileID: 1337922332}
   m_Layer: 0
   m_Name: SongUp
   m_TagString: Untagged
@@ -2560,6 +2673,69 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1337922332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337922329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7ea6447d946274fad8882e4ab6cb04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 2
+  songPanelManager: {fileID: 0}
+  difficultyManager: {fileID: 0}
+  buttonsToEnable: []
+  buttonsToDisable: []
+--- !u!1 &1404054282
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1404054283}
+  - component: {fileID: 1404054284}
+  m_Layer: 0
+  m_Name: SongPanelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1404054283
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404054282}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 199756001}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1404054284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404054282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbf96af7c9cdf524d9a1842b6766dcd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  songPanels:
+  - {fileID: 2010585482}
 --- !u!4 &1558603854 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4471613377008970, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
@@ -3433,6 +3609,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1973630941}
   - component: {fileID: 1973630942}
+  - component: {fileID: 1973630943}
   m_Layer: 0
   m_Name: DiffDown
   m_TagString: Untagged
@@ -3469,6 +3646,23 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1973630943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973630940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7ea6447d946274fad8882e4ab6cb04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 6
+  songPanelManager: {fileID: 0}
+  difficultyManager: {fileID: 0}
+  buttonsToEnable: []
+  buttonsToDisable: []
 --- !u!1 &1998908721
 GameObject:
   m_ObjectHideFlags: 0
@@ -3479,6 +3673,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1998908722}
   - component: {fileID: 1998908723}
+  - component: {fileID: 1998908724}
   m_Layer: 0
   m_Name: Settings
   m_TagString: Untagged
@@ -3515,6 +3710,55 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1998908724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1998908721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7ea6447d946274fad8882e4ab6cb04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 5
+  songPanelManager: {fileID: 0}
+  difficultyManager: {fileID: 0}
+  buttonsToEnable: []
+  buttonsToDisable: []
+--- !u!1 &2001475530
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2001475531}
+  m_Layer: 0
+  m_Name: SongPanels
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2001475531
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001475530}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2010585481}
+  m_Father: {fileID: 199756001}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2010585479
 GameObject:
   m_ObjectHideFlags: 0
@@ -3525,13 +3769,14 @@ GameObject:
   m_Component:
   - component: {fileID: 2010585481}
   - component: {fileID: 2010585480}
+  - component: {fileID: 2010585482}
   m_Layer: 0
-  m_Name: Song
+  m_Name: RollingGirl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &2010585480
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3640,9 +3885,26 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 484876708}
-  m_RootOrder: 2
+  m_Father: {fileID: 2001475531}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2010585482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2010585479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ac898703e959624c9012efa56dff021, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  song: {fileID: 2010585480}
+  songSystemName: RollingGirl
+  possibleDifficulties: 
+  panels: []
+  panelTexts: []
 --- !u!1 &2027171003
 GameObject:
   m_ObjectHideFlags: 0
