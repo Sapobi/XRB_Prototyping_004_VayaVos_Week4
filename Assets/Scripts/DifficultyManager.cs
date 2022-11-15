@@ -15,24 +15,19 @@ public class DifficultyManager : MonoBehaviour
 		SetDifficulty();
 	}
 
-	public void MoveUp()
+	public void MoveDifficulty(int amount)
 	{
-		_index++;
+		_index += amount;
 		if (_index == possibleDifficulties.Count) _index = 0;
-
-		SetDifficulty();
-	}
-
-	public void MoveDown()
-	{
-		_index--;
-		if (_index < 0) _index += possibleDifficulties.Count;
+		else if (_index < 0) _index += possibleDifficulties.Count;
 
 		SetDifficulty();
 	}
 
 	private void SetDifficulty()
 	{
+		if (possibleDifficulties.Count == 0) return;
+		
 		currentDifficulty = possibleDifficulties[_index];
 		switch (currentDifficulty)
 		{

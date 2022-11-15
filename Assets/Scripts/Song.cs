@@ -3,8 +3,8 @@ using UnityEngine;
 
 public enum Difficulty
 {
-	Easy = 0,
-	Advanced = 1
+	Easy = 1,
+	Advanced = 2
 }
 
 public class Song : MonoBehaviour
@@ -15,11 +15,11 @@ public class Song : MonoBehaviour
 	[SerializeField] private string[] panels;
 	[SerializeField] private string[] panelTexts;
 
-	private DifficultyManager _difficultyManager;
+	[SerializeField] private DifficultyManager difficultyManager;
 	
 	private void Start()
 	{
-		_difficultyManager = FindObjectOfType<DifficultyManager>();
+		enabled = false;
 	}
 
 	private void OnEnable()
@@ -29,9 +29,10 @@ public class Song : MonoBehaviour
 			panels[i] = panelTexts[i];
 		}
 
+		Debug.Log(gameObject.name);
 		SongManager.Instance.audioSource = song;
 		SongManager.Instance.songName = songSystemName;
 
-		_difficultyManager.SetPossibleDifficulties(possibleDifficulties);
+		difficultyManager.SetPossibleDifficulties(possibleDifficulties);
 	}
 }

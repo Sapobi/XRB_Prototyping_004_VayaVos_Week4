@@ -22,17 +22,34 @@ public class SongManager : MonoBehaviour
 	public static readonly UnityEvent StartGame = new();
 	public static readonly UnityEvent EndGame = new();
 
+	private bool _playing;
+
 	// Start is called before the first frame update
-	void Start()
+	void Awake()
 	{
 		Instance = this;
 		StartGame.AddListener(StartSong);
+		EndGame.AddListener(() => SetPlaying(false));
+	}
+
+	private void Update()
+	{
+		if (!_playing) return;
+		if (audioSource.isPlaying) return;
+		
+		EndGame.Invoke();
 	}
 
 	private void StartSong()
 	{
 		ReadFromFile();
 		audioSource.Play();
+		SetPlaying(true);
+	}
+	
+	private void SetPlaying(bool state)
+	{
+		_playing = state;
 	}
 
 	private void ReadFromFile()

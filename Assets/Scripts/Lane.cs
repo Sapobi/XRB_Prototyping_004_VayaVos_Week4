@@ -1,6 +1,8 @@
 using Melanchall.DryWetMidi.Interaction;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
+using Oculus.Interaction.Input;
 using UnityEngine;
 
 public class Lane : MonoBehaviour
@@ -19,7 +21,8 @@ public class Lane : MonoBehaviour
 
 	private void Start()
 	{
-		SongManager.StartGame.AddListener(StartLane);
+		SongManager.StartGame.AddListener(() => SetPlaying(true));
+		SongManager.EndGame.AddListener(() => SetPlaying(false));
 	}
 
 	public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array)
@@ -43,9 +46,9 @@ public class Lane : MonoBehaviour
 		_inputIndex = 0;
 	}
 
-	private void StartLane()
+	private void SetPlaying(bool state)
 	{
-		_playing = true;
+		_playing = state;
 	}
 
 	void Update()
@@ -87,7 +90,9 @@ public class Lane : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		HandleTapFeedback();
+		if (!other.gameObject.TryGetComponent(out HandController hand)) return;
+
+		HandleTapFeedback(hand);
 		if (!_playing) return;
 
 		//hit notes
@@ -111,11 +116,36 @@ public class Lane : MonoBehaviour
 		}
 	}
 
-	private void HandleTapFeedback()
+	private void HandleTapFeedback(HandController hand)
 	{
 		tapSound.Play();
 		//change material
-		//haptic feedback
+
+		switch (hand.controller)
+		{
+			case OVRInput.Controller.RTouch:
+				CancelInvoke(nameof(StopHapticR));
+				StopHapticR();
+				OVRInput.SetControllerVibration(1, 1, hand.controller);
+				Invoke(nameof(StopHapticR), 0.015f);
+				break;
+			case OVRInput.Controller.LTouch:
+				CancelInvoke(nameof(StopHapticL));
+				StopHapticL();
+				OVRInput.SetControllerVibration(1, 1, hand.controller);
+				Invoke(nameof(StopHapticL), 0.015f);
+				break;
+		}
+	}
+
+	private void StopHapticR()
+	{
+		OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
+	}
+
+	private void StopHapticL()
+	{
+		OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.LTouch);
 	}
 
 	private void Hit()

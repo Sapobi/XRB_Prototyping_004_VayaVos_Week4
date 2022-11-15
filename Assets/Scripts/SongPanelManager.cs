@@ -12,18 +12,11 @@ public class SongPanelManager : MonoBehaviour
 		OpenSongPanel();
 	}
 
-	public void MoveUp()
+	public void MoveSong(int amount)
 	{
-		_index++;
+		_index += amount;
 		if (_index == songPanels.Count) _index = 0;
-
-		OpenSongPanel();
-	}
-
-	public void MoveDown()
-	{
-		_index--;
-		if (_index < 0) _index += songPanels.Count;
+		else if (_index < 0) _index += songPanels.Count;
 
 		OpenSongPanel();
 	}
