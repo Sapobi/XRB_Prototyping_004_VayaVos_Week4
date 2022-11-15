@@ -31,22 +31,6 @@ public class DifficultyManager : MonoBehaviour
 		SetDifficulty();
 	}
 
-	public void SetPossibleDifficulties(List<Difficulty> difficulties)
-	{
-		possibleDifficulties = difficulties;
-
-		foreach (var difficulty in possibleDifficulties)
-		{
-			if (currentDifficulty != difficulty) continue;
-			
-			_index = possibleDifficulties.IndexOf(difficulty);
-			return;
-		}
-
-		_index = 0;
-		SetDifficulty();
-	}
-
 	private void SetDifficulty()
 	{
 		currentDifficulty = possibleDifficulties[_index];
@@ -63,5 +47,21 @@ public class DifficultyManager : MonoBehaviour
 		}
 
 		SongManager.Instance.songDiff = (int)possibleDifficulties[_index];
+	}
+
+	public void SetPossibleDifficulties(List<Difficulty> difficulties)
+	{
+		possibleDifficulties = difficulties;
+
+		foreach (var difficulty in possibleDifficulties)
+		{
+			if (currentDifficulty != difficulty) continue;
+			
+			_index = possibleDifficulties.IndexOf(difficulty);
+			return;
+		}
+
+		_index = 0;
+		SetDifficulty();
 	}
 }

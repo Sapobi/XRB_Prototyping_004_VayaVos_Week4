@@ -183,8 +183,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 8
-  songPanelManager: {fileID: 0}
-  difficultyManager: {fileID: 0}
   buttonsToEnable: []
   buttonsToDisable: []
 --- !u!1 &127879691
@@ -546,9 +544,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 941559856}
   - {fileID: 1404054283}
   - {fileID: 2001475531}
-  - {fileID: 941559856}
   - {fileID: 391478503}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -865,8 +863,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 4
-  songPanelManager: {fileID: 0}
-  difficultyManager: {fileID: 0}
   buttonsToEnable: []
   buttonsToDisable: []
 --- !u!135 &422520961
@@ -1150,8 +1146,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  songPanelManager: {fileID: 0}
-  difficultyManager: {fileID: 0}
   buttonsToEnable: []
   buttonsToDisable: []
 --- !u!1 &531664466
@@ -1487,8 +1481,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 7
-  songPanelManager: {fileID: 0}
-  difficultyManager: {fileID: 0}
   buttonsToEnable: []
   buttonsToDisable: []
 --- !u!1 &686568024
@@ -1582,8 +1574,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
-  songPanelManager: {fileID: 0}
-  difficultyManager: {fileID: 0}
   buttonsToEnable: []
   buttonsToDisable: []
 --- !u!1 &800305737
@@ -1887,7 +1877,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 199756001}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &941559857
 MonoBehaviour:
@@ -1901,7 +1891,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 853b45d128f6a664781a038158866912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulties: 01000000
+  panel: 
+  possibleDifficulties: 
+  currentDifficulty: 0
 --- !u!1 &975334961
 GameObject:
   m_ObjectHideFlags: 0
@@ -2686,8 +2678,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
-  songPanelManager: {fileID: 0}
-  difficultyManager: {fileID: 0}
   buttonsToEnable: []
   buttonsToDisable: []
 --- !u!1 &1404054282
@@ -2720,7 +2710,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 199756001}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1404054284
 MonoBehaviour:
@@ -3659,8 +3649,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 6
-  songPanelManager: {fileID: 0}
-  difficultyManager: {fileID: 0}
   buttonsToEnable: []
   buttonsToDisable: []
 --- !u!1 &1998908721
@@ -3723,8 +3711,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 5
-  songPanelManager: {fileID: 0}
-  difficultyManager: {fileID: 0}
   buttonsToEnable: []
   buttonsToDisable: []
 --- !u!1 &2001475530
@@ -3757,7 +3743,7 @@ Transform:
   m_Children:
   - {fileID: 2010585481}
   m_Father: {fileID: 199756001}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2010585479
 GameObject:
@@ -3776,7 +3762,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!82 &2010585480
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3895,14 +3881,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2010585479}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ac898703e959624c9012efa56dff021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   song: {fileID: 2010585480}
   songSystemName: RollingGirl
-  possibleDifficulties: 
+  possibleDifficulties: 00000000
   panels: []
   panelTexts: []
 --- !u!1 &2027171003

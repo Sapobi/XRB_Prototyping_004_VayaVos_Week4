@@ -32,9 +32,9 @@ public class SongPanelManager : MonoBehaviour
 	{
 		foreach (var panel in songPanels)
 		{
-			panel.gameObject.SetActive(false);
+			panel.enabled = false;
 		}
 
-		songPanels[_index].gameObject.SetActive(true);
+		songPanels[_index].enabled = true;
 	}
 }

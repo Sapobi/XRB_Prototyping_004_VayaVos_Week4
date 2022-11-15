@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public enum Difficulty
 {
-	Easy = 1,
-	Advanced = 2
+	Easy = 0,
+	Advanced = 1
 }
 
 public class Song : MonoBehaviour
