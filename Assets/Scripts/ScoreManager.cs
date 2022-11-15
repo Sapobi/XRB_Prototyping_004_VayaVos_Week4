@@ -12,6 +12,11 @@ public class ScoreManager : MonoBehaviour
 	void Start()
 	{
 		Instance = this;
+		SongManager.StartGame.AddListener(ResetScore);
+	}
+
+	private static void ResetScore()
+	{
 		comboScore = 0;
 	}
 
@@ -23,7 +28,7 @@ public class ScoreManager : MonoBehaviour
 
 	public static void Miss()
 	{
-		comboScore = 0;
+		ResetScore();
 		Instance.missSFX.Play();
 	}
 

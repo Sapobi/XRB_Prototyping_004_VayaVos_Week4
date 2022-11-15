@@ -5,19 +5,26 @@ using UnityEngine;
 
 public class Lane : MonoBehaviour
 {
-	public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestriction; //coressponding note to the lane
-	public KeyCode input; //the button that needs to be pressed for this lane
-	public GameObject notePrefab; //will move this to Note instead, as depending on the note type you will need different prefab later
-	List<Note> notes = new(); //the spawned notes
-	public List<double> timeStamps = new();
-	public Transform noteSpawn;
-	public Transform noteTap;
+	[SerializeField] private Melanchall.DryWetMidi.MusicTheory.NoteName noteRestriction; //corresponding note to the lane
+	[SerializeField] private GameObject notePrefab; //will have to move this to Note instead, as depending on the note type you will need different prefab later
+	[SerializeField] private Transform noteSpawn, noteDespawn;
+	[SerializeField] private AudioSource tapSound;
+	
+	private List<Note> notes = new(); //the spawned note prefab
+	private List<double> timeStamps = new(); //note spawntimes for this lane
 
-	int spawnIndex = 0;
-	int inputIndex = 0;
+	private int spawnIndex;
+	private int inputIndex;
+	private bool playing;
+
+	private void Start()
+	{
+		SongManager.StartGame.AddListener(StartLane);
+	}
 
 	public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array)
 	{
+		InitializeLane();
 		foreach (var note in array)
 		{
 			if (note.NoteName == noteRestriction)
@@ -28,41 +35,45 @@ public class Lane : MonoBehaviour
 		}
 	}
 
+	private void InitializeLane()
+	{
+		notes = new List<Note>();
+		timeStamps = new List<double>();
+		spawnIndex = 0;
+		inputIndex = 0;
+	}
+
+	private void StartLane()
+	{
+		playing = true;
+	}
+
 	void Update()
 	{
+		if (!playing) return;
+		
+		//spawn notes
 		if (spawnIndex < timeStamps.Count)
 		{
 			if (SongManager.GetAudioSourceTime() >= timeStamps[spawnIndex] - SongManager.Instance.noteTime)
 			{
-				var note = Instantiate(notePrefab, noteSpawn.position, Quaternion.identity);
-				notes.Add(note.GetComponent<Note>());
-				note.GetComponent<Note>().assignedTime = (float)timeStamps[spawnIndex];
-				note.GetComponent<Note>().spawnPos = noteSpawn.position;
-				note.GetComponent<Note>().tapPos = noteTap.position;
+				var noteGameObject = Instantiate(notePrefab, noteSpawn.position, Quaternion.identity);
+				var note = noteGameObject.GetComponent<Note>();
+				notes.Add(note);
+				note.assignedTime = (float)timeStamps[spawnIndex];
+				note.spawnPos = noteSpawn.position;
+				note.tapPos = transform.position;
+				note.despawnPos = noteDespawn.position;
 				spawnIndex++;
 			}
 		}
 
+		//miss notes
 		if (inputIndex < timeStamps.Count)
 		{
-			double timeStamp = timeStamps[inputIndex];
-			double marginOfError = SongManager.Instance.marginOfError;
-			double audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.inputDelayInMilliseconds / 1000.0);
-
-			if (Input.GetKeyDown(input)) //need to change to actual vr input
-			{
-				if (Math.Abs(audioTime - timeStamp) < marginOfError)
-				{
-					Hit();
-					print($"Hit on {inputIndex} note");
-					Destroy(notes[inputIndex].gameObject);
-					inputIndex++;
-				}
-				else
-				{
-					print($"Hit inaccurate on {inputIndex} note with {Math.Abs(audioTime - timeStamp)} delay");
-				}
-			}
+			var timeStamp = timeStamps[inputIndex];
+			var marginOfError = SongManager.Instance.marginOfError;
+			var audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.inputDelayInMilliseconds / 1000.0);
 
 			if (timeStamp + marginOfError <= audioTime)
 			{
@@ -71,6 +82,37 @@ public class Lane : MonoBehaviour
 				inputIndex++;
 			}
 		}
+	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		HandleTapFeedback();
+		if (!playing) return;
+		
+		//hit notes
+		if (inputIndex < timeStamps.Count)
+		{
+			var timeStamp = timeStamps[inputIndex];
+			var marginOfError = SongManager.Instance.marginOfError;
+			var audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.inputDelayInMilliseconds / 1000.0);
+
+			if (Math.Abs(audioTime - timeStamp) < marginOfError)
+			{
+				Hit();
+				print($"Hit on {inputIndex} note");
+				Destroy(notes[inputIndex].gameObject);
+				inputIndex++;
+			}
+			else
+			{
+				print($"Hit inaccurate on {inputIndex} note with {Math.Abs(audioTime - timeStamp)} delay");
+			}
+		}
+	}
+
+	private void HandleTapFeedback()
+	{
+		tapSound.Play();
 	}
 
 	private void Hit()
