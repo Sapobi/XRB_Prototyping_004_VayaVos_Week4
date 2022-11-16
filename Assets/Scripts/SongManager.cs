@@ -53,6 +53,10 @@ public class SongManager : MonoBehaviour
 		{
 			StartCoroutine(ReadFromWebsite());
 		}
+		else if (Application.platform == RuntimePlatform.Android)
+		{
+			ReadAndroid();
+		}
 		else
 		{
 			ReadFromFile();
@@ -85,6 +89,21 @@ public class SongManager : MonoBehaviour
 					GetDataFromMidi();
 				}
 			}
+		}
+	}
+	
+	private void ReadAndroid()
+	{
+		var www = UnityWebRequest.Get(_filePath);
+		www.SendWebRequest();
+		while (!www.isDone)
+		{
+		}
+		var results = www.downloadHandler.data;
+		using (var stream = new MemoryStream(results))
+		{
+			MidiFile = MidiFile.Read(stream);
+			GetDataFromMidi();
 		}
 	}
 
