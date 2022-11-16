@@ -1,7 +1,10 @@
+using System.Collections;
+using System.IO;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Networking;
 
 public class SongManager : MonoBehaviour
 {
@@ -23,6 +26,8 @@ public class SongManager : MonoBehaviour
 	public static readonly UnityEvent EndGame = new();
 
 	private bool _playing;
+	private string _filePath;
+	
 
 	// Start is called before the first frame update
 	void Awake()
@@ -42,19 +47,50 @@ public class SongManager : MonoBehaviour
 
 	private void StartSong()
 	{
-		ReadFromFile();
+		_filePath = Application.streamingAssetsPath + "/" + songName + songDiff + ".mid";
+		
+		if (Application.streamingAssetsPath.StartsWith("http://") || Application.streamingAssetsPath.StartsWith("https://"))
+		{
+			StartCoroutine(ReadFromWebsite());
+		}
+		else
+		{
+			ReadFromFile();
+		}
 		audioSource.Play();
 		SetPlaying(true);
 	}
-	
+
 	private void SetPlaying(bool state)
 	{
 		_playing = state;
 	}
 
+	private IEnumerator ReadFromWebsite()
+	{
+		using (var www = UnityWebRequest.Get(_filePath))
+		{
+			yield return www.SendWebRequest();
+
+			if (www.isNetworkError || www.isHttpError)
+			{
+				Debug.LogError(www.error);
+			}
+			else
+			{
+				byte[] results = www.downloadHandler.data;
+				using (var stream = new MemoryStream(results))
+				{
+					MidiFile = MidiFile.Read(stream);
+					GetDataFromMidi();
+				}
+			}
+		}
+	}
+
 	private void ReadFromFile()
 	{
-		MidiFile = MidiFile.Read(Application.streamingAssetsPath + "/" + songName + songDiff + ".mid");
+		MidiFile = MidiFile.Read(_filePath);
 		GetDataFromMidi();
 	}
 
