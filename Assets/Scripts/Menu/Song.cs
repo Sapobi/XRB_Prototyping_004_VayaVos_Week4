@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,13 +14,12 @@ public class Song : MonoBehaviour
 	[SerializeField] private List<Difficulty> possibleDifficulties;
 	[SerializeField] private string[] songInfo;
 	
-	[SerializeField] private DifficultyManager _difficultyManager;
-	[SerializeField] private SongPanelManager _songPanelManager;
+	[SerializeField] private DifficultyManager difficultyManager;
+	[SerializeField] private SongPanelManager songPanelManager;
 	
 	private void Start()
 	{
 		SongManager.StartGame.AddListener(Disable);
-		Disable();
 	}
 
 	private void Disable()
@@ -31,15 +29,15 @@ public class Song : MonoBehaviour
 
 	private void OnEnable()
 	{
-		for (var i = 0; i < _songPanelManager.songInfoTexts.Length; i++)
+		for (var i = 0; i < songPanelManager.songInfoTexts.Length; i++)
 		{
-			_songPanelManager.songInfoTexts[i].text = songInfo[i];
+			songPanelManager.songInfoTexts[i].text = songInfo[i];
 		}
 
 		SongManager.Instance.audioSource = song;
 		SongManager.Instance.songName = songSystemName;
 
-		_difficultyManager.SetPossibleDifficulties(possibleDifficulties);
+		difficultyManager.SetPossibleDifficulties(possibleDifficulties);
 
 		songPreview.Play();
 	}
